@@ -25,5 +25,10 @@ export default [
         name: 'foxModel',
         type: 'gltfModel',
         path: 'models/Fox/glTF/Fox.gltf'
+    },
+    {
+        name: 'roomModel',
+        type: 'gltfModel',
+        path: 'models/Room/light_test.gltf'
     }
 ]
