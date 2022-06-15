@@ -10,8 +10,22 @@ export default class PointOfInterest {
 
         // set attributes
         this.position = position
-        this.element = document.querySelector(`.point-${number}`) 
 
+        this.element = this.createElement(text)
+    }
+
+    /**
+     * creates new Element from a html template
+     * @param {*} text 
+     * @returns 
+     */
+    createElement(text) {
+        const app = document.querySelector(".app")
+        const newPointElement = document.querySelector("#pointTemplate").content.cloneNode(true).firstElementChild
+        newPointElement.querySelector(".label").innerHTML = "Click me"
+        newPointElement.querySelector(".text").innerHTML = text
+        const newNode = app.appendChild(newPointElement)
+        return newNode
     }
 
     update() {

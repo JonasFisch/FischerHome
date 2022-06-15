@@ -1,38 +1,42 @@
+
+body
+    background-color: #3a3a3a
 .point
     position: absolute
-
     top: 50%
     left: 50%
 
 .point .label
-
     position: absolute
-    width: 40px
-    height: 40px
+    width: 60px
+    height: 60px
     top: -20px
     left: -20px
     border-radius: 50%
-    background-color: #00000077
+    background-color: #cfdffc
+    opacity: 0.5
     color: white
     font-family: Helvetica, Arial, sans-serif
     text-align: center
     line-height: 40px
     font-weight: 100
     font-size: 14px
-    cursor: help
+    cursor: pointer
     transform: scale(0, 0)
+
+    transition: 0.6s opacity ease-in-out
+
+    &:hover
+        opacity: 1
     // transition: transform 0.3s
 
 .point.visible .label
-
     transform: scale(1, 1)
 
 .point:hover .text
-
     opacity: 1
 
 .point .text
-
     position: absolute
     top: 30px
     padding: 20px
