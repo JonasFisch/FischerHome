@@ -1,8 +1,10 @@
+import { on } from "events"
 import * as THREE from "three"
 
 import Camera from "./Camera"
 import Renderer from "./Renderer"
 import sources from "./sources"
+import Cursor from "./Utils/Cursor"
 import Debug from "./Utils/Debug"
 import Resources from "./Utils/Resources"
 import Sizes from "./Utils/Sizes"
@@ -30,6 +32,8 @@ export default class Experience {
         
         this.time = new Time()
         this.time.on('tick', () => this.update())
+
+        this.cursor = new Cursor()
     
         // three.js 
         this.scene = new THREE.Scene()
