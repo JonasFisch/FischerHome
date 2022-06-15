@@ -55,6 +55,10 @@ export default class Room {
                 child.castShadow = true
                 child.shadow.normalBias = 0.05
                 child.shadow.mapSize.set(1024, 1024)
+                console.log(child.shadow.camera);
+                child.shadow.camera.far = 10
+                const helper = new THREE.CameraHelper(child.shadow.camera)
+                this.scene.add(helper)
                 this.lights.push(child)
                 // TODO: camera settings for performance optimization
             } 
