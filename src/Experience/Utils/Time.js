@@ -9,10 +9,13 @@ export default class Time extends EventEmitter {
         this.current = this.start
         this.elapsed = 0
         this.delta = 16 // 0 will cause some bugs ...
-        
-        // Day Status
-        this.isDay = false
 
+        // Day Status
+        const hours = new Date(this.start).getHours()
+        this.isDay = hours > 7 && hours < 19
+
+        // ticks
+        this.longerTick()
         window.requestAnimationFrame(() => this.tick())
     }
 
@@ -27,5 +30,13 @@ export default class Time extends EventEmitter {
         window.requestAnimationFrame(() => {
             this.tick()
         })
+    }
+
+    longerTick() {
+        setTimeout(() => {    
+            // this.trigger('night')
+            // console.log("tick15Minutes");
+            this.longerTick()
+        }, 1000);
     }
 }

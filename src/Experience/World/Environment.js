@@ -14,6 +14,8 @@ export default class Environment {
         this.debug = this.experience.debug
         this.time = this.experience.time
 
+        
+
         // Debug 
         if(this.debug.active) {
             const debugObject = {
@@ -32,9 +34,16 @@ export default class Environment {
 
         // Set Environment
         this.setEnvironmentLight()
-        this.setSunLight()
         this.setEnvironmentMap()
+        
+        // set type of light
+        if (this.time.isDay) this.setSunLight()
+        else this.setMoonLight()
 
+        // register Events
+        this.time.on("night", () => {
+            this.setMoonLight()
+        })
     }
 
     setSunLight() {
@@ -63,7 +72,11 @@ export default class Environment {
         this.environmentLight.shadow.camera.far = 15
         this.environmentLight.shadow.mapSize.set(1024, 1024)
         this.environmentLight.shadow.normalBias = 0.05
-        this.environmentLight.position.set(-0.77, 2, - 1.25)
+
+        // TODO: set sunset and sunrise Light position and color here! use this api https://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400&date=today
+        this.environmentLight.position.set(-0.77, 10, - 1.25)
+        // const cameraHelper = new THREE.CameraHelper(this.environmentLight.shadow.camera)
+        // this.scene.add(cameraHelper)
         this.scene.add(this.environmentLight)
 
         if(this.debug.active) {
