@@ -9,6 +9,9 @@ export default class Time extends EventEmitter {
         this.current = this.start
         this.elapsed = 0
         this.delta = 16 // 0 will cause some bugs ...
+        
+        // Day Status
+        this.isDay = false
 
         window.requestAnimationFrame(() => this.tick())
     }

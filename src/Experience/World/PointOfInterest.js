@@ -2,7 +2,7 @@ import Experience from "../Experience";
 
 export default class PointOfInterest {
 
-    constructor(position, number, text) {
+    constructor(position, text, timeout) {
         // get context elements
         this.experience = new Experience()
         this.camera = this.experience.camera.instance
@@ -11,7 +11,8 @@ export default class PointOfInterest {
         // set attributes
         this.position = position
 
-        this.element = this.createElement(text)
+        // create html element
+        this.element = this.createElement(text, timeout)
     }
 
     /**
@@ -19,12 +20,17 @@ export default class PointOfInterest {
      * @param {*} text 
      * @returns 
      */
-    createElement(text) {
+    createElement(text, timeout) {
         const app = document.querySelector(".app")
         const newPointElement = document.querySelector("#pointTemplate").content.cloneNode(true).firstElementChild
-        newPointElement.querySelector(".label").innerHTML = "Click me"
-        newPointElement.querySelector(".text").innerHTML = text
+        newPointElement.querySelector(".label").innerHTML = ""
+        // newPointElement.querySelector(".text").innerHTML = text
         const newNode = app.appendChild(newPointElement)
+        
+        // show points of interest after x seconds
+        setTimeout(() => {
+            newNode.classList.add("visible")
+        }, 1500);
         return newNode
     }
 

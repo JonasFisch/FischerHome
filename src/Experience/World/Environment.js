@@ -1,57 +1,101 @@
 import Experience from "../Experience"
 import * as THREE from "three"
+import gsap from "gsap"
 
 export default class Environment {
+
+    static sunLightColor = new THREE.Color("#ffffff")
+    static moonLightColor = new THREE.Color("#6d72fd")
+
     constructor() {
         this.experience = new Experience()
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
+        this.time = this.experience.time
 
         // Debug 
-        if(this.debug.active) this.debugFolder = this.debug.ui.addFolder("environment")
+        if(this.debug.active) {
+            const debugObject = {
+                setSunLight: () => {
+                    this.setSunLight()
+                },
+                setMoonLight: () => {
+                    this.setMoonLight()
+                } 
+            }
+            
+            this.debugFolder = this.debug.ui.addFolder("environment")
+            this.debugFolder.add(debugObject, "setSunLight")
+            this.debugFolder.add(debugObject, "setMoonLight")
+        }
 
-        // this.setSunLight()
+        // Set Environment
+        this.setEnvironmentLight()
+        this.setSunLight()
         this.setEnvironmentMap()
+
     }
 
     setSunLight() {
-        this.sunLight = new THREE.DirectionalLight('#ffffff', 4)
-        this.sunLight.castShadow = true
-        this.sunLight.shadow.camera.far = 15
-        this.sunLight.shadow.mapSize.set(1024, 1024)
-        this.sunLight.shadow.normalBias = 0.05
-        this.sunLight.position.set(3.5, 2, - 1.25)
-        this.scene.add(this.sunLight)
+        this.environmentLight.intensity = 4
+        gsap.to(this.environmentLight.color, {
+            r: Environment.sunLightColor.r,
+            g: Environment.sunLightColor.g,
+            b: Environment.sunLightColor.b, 
+            duration: 1
+        })
+    }
+
+    setMoonLight() {
+        this.environmentLight.intensity = 4
+        gsap.to(this.environmentLight.color, {
+            r: Environment.moonLightColor.r,
+            g: Environment.moonLightColor.g,
+            b: Environment.moonLightColor.b, 
+            duration: 1
+        })
+    }
+
+    setEnvironmentLight() {
+        this.environmentLight = new THREE.DirectionalLight('#ffffff', 4)
+        this.environmentLight.castShadow = true
+        this.environmentLight.shadow.camera.far = 15
+        this.environmentLight.shadow.mapSize.set(1024, 1024)
+        this.environmentLight.shadow.normalBias = 0.05
+        this.environmentLight.position.set(-0.77, 2, - 1.25)
+        this.scene.add(this.environmentLight)
 
         if(this.debug.active) {
             this.debugFolder
-                .add(this.sunLight, "intensity")
+                .add(this.environmentLight, "intensity")
                 .name("sunLightIntensity")
                 .min(0)
                 .max(10)
                 .step(0.001)
 
             this.debugFolder
-                .add(this.sunLight.position, "x")
+                .add(this.environmentLight.position, "x")
                 .name("sunLightX")
                 .min(-5)
                 .max(5)
                 .step(0.001)
                 
             this.debugFolder
-                .add(this.sunLight.position, "y")
+                .add(this.environmentLight.position, "y")
                 .name("sunLightY")
                 .min(-5)
                 .max(5)
                 .step(0.001)
 
             this.debugFolder
-                .add(this.sunLight.position, "z")
+                .add(this.environmentLight.position, "z")
                 .name("sunLightZ")
                 .min(-5)
                 .max(5)
                 .step(0.001)
+            this.debugFolder.addColor(this.environmentLight, "color")
+
         }
     }
 

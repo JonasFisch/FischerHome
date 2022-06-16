@@ -14,25 +14,10 @@ export default class Room {
         this.pointsOfInterest = []
 
         this.setModel()
-        window.setTimeout(() => {
-            this.turnOffLight()
-        }, 2000)
-
-
-        // this.pointOfInterest1 = new PointOfInterest(new THREE.Vector3(1.55, 0.3, - 0.6), 0, "lorem ipsum")
-        // this.pointOfInterest2 = new PointOfInterest(new THREE.Vector3(-1, 0.3, - 0.6), 1, "wdwafwaww")
-        
-        // this.pointOfInterest1.element.addEventListener("click", () => {
-        //     this.toggleLight("Lichterkette")
-        // })
-
-        // this.pointOfInterest2.element.addEventListener("click", () => {
-        //    this.toggleLight("Schreibtischlampen")
-        // })
     }
 
     addPointOfInterest(light) {
-        const newPointOfinterest = new PointOfInterest(light.parent.position, 1, light.name)
+        const newPointOfinterest = new PointOfInterest(light.parent.position, light.name, 1500)
         newPointOfinterest.element.addEventListener("click", () => this.toggle(light))
         this.pointsOfInterest.push(newPointOfinterest)
     }
@@ -41,32 +26,6 @@ export default class Room {
         if (light.intensity === 0) gsap.to(light, {intensity: 400, duration: 0.8})
         else gsap.to(light, {intensity: 0, duration: 0.8})
     }
-
-
-    turnOffLight() {
-        for (const light of this.lights) {
-            console.log(light.intensity);
-            gsap.to(light, {intensity: 0, duration: 0.8})
-        }
-    }
-
-    turnOnLight() {
-        for (const light of this.lights) {
-            gsap.to(light, {intensity: 800, duration: 0.8})
-        }
-    }
-
-    // toggleLight(name) {
-    //     for (const light of this.lights) {
-    //         console.log(light);
-    //         if (light.name === `${name}_Orientation`) {
-    //             if (light.intensity === 0) gsap.to(light, {intensity: 400, duration: 0.8})
-    //             else gsap.to(light, {intensity: 0, duration: 0.8})
-    //         } else {
-    //             console.log("cant find light with that name!");
-    //         }
-    //     }
-    // }
 
     setModel() {
         this.model = this.resource.scene
@@ -85,6 +44,7 @@ export default class Room {
                 this.addPointOfInterest(child) 
                 // const helper = new THREE.CameraHelper(child.shadow.camera)
                 // this.scene.add(helper)
+                child.intensity = 0
                 this.lights.push(child)
             } 
         })
@@ -94,7 +54,5 @@ export default class Room {
         for (const pointOfInterest of this.pointsOfInterest) {
             pointOfInterest.update()            
         }
-        // if (this.pointOfInterest1) this.pointOfInterest1.update()
-        // if (this.pointOfInterest2) this.pointOfInterest2.update()
     }
 }

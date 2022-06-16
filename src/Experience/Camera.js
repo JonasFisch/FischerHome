@@ -10,6 +10,9 @@ export default class Camera {
         this.canvas = this.experience.canvas
         this.cursor = this.experience.cursor
         this.time = this.experience.time
+        this.debug = this.experience.debug
+
+        if (this.debug.active) this.debugFolder = this.debug.ui.addFolder("camera")
 
         this.setInstance()
         this.setOrbitControls()
@@ -27,7 +30,30 @@ export default class Camera {
             0.1, 
             100
         )
-        this.instance.position.set(0, 0, 6)
+        this.instance.position.set(-19, 12, 20)
+        if (this.debug.active) {
+            this.debugFolder
+                .add(this.instance.position, "x")
+                .name("positionX")
+                .min(-20)
+                .max(20)
+                .step(0.001)
+
+            this.debugFolder
+                .add(this.instance.position, "y")
+                .name("positionY")
+                .min(-20)
+                .max(20)
+                .step(0.001)
+
+            this.debugFolder
+                .add(this.instance.position, "z")
+                .name("positionZ")
+                .min(-20)
+                .max(20)
+                .step(0.001)  
+        }
+        console.log(this.instance);
         this.cameraGroup.add(this.instance)
     }
 
@@ -43,9 +69,8 @@ export default class Camera {
 
     update() {
         this.controls.update()
-
-        // const parallaxX = this.cursor.x * 0.5
-        // const parallaxY = - this.cursor.y * 0.5
+        // const parallaxX = this.cursor.x * 2
+        // const parallaxY = - this.cursor.y * 2
 
         // this.cameraGroup.position.x += (parallaxX - this.cameraGroup.position.x) * 0.15 * (this.time.delta / 100)
         // this.cameraGroup.position.y += (parallaxY - this.cameraGroup.position.y) * 0.15 * (this.time.delta / 100)
