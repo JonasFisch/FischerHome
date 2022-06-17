@@ -1,0 +1,375 @@
+@-webkit-keyframes on {
+  0% {
+    background-color: white;
+    height: 200px;
+  }
+  75% {
+    background-color: yellow;
+    height: 220px;
+  }
+  100% {
+    background-color: yellow;
+    height: 200px;
+  }
+}
+@keyframes on {
+  0% {
+    background-color: white;
+    height: 200px;
+  }
+  75% {
+    background-color: yellow;
+    height: 220px;
+  }
+  100% {
+    background-color: yellow;
+    height: 200px;
+  }
+}
+@-webkit-keyframes off {
+  0% {
+    background-color: yellow;
+    height: 200px;
+  }
+  25% {
+    background-color: yellow;
+    height: 220px;
+  }
+  100% {
+    background-color: white;
+    height: 200px;
+  }
+}
+@keyframes off {
+  0% {
+    background-color: yellow;
+    height: 200px;
+  }
+  25% {
+    background-color: yellow;
+    height: 220px;
+  }
+  100% {
+    background-color: white;
+    height: 200px;
+  }
+}
+* {
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Poppins", sans-serif;
+}
+
+main {
+  width: 100%;
+  display: flex;
+}
+main nav {
+  position: relative;
+  height: 100vh;
+  margin-right: 15px;
+  white-space: nowrap;
+  text-overflow: fade;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+main nav ul {
+  list-style: none;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  padding: 15px;
+  width: 100%;
+}
+main nav ul li {
+  padding: 15px;
+  margin: 15px 0;
+  cursor: pointer;
+  border-radius: 13px;
+}
+main nav ul li:hover {
+  background-color: lightgreen;
+}
+main nav ul .selected {
+  background-color: lightgreen;
+}
+main nav .settings-button {
+  position: absolute;
+  bottom: 0%;
+  font-size: 1.75rem;
+  width: 100%;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  background-color: white;
+}
+main nav .settings-button:hover {
+  background-color: lightgreen;
+}
+main nav .settings-button .icon {
+  height: 35px;
+  margin-right: 15px;
+}
+main .room-container {
+  float: right;
+  z-index: 10;
+  padding: 20px 10%;
+  height: 100vh;
+  overflow-y: scroll;
+}
+main .room-container .heading {
+  background-image: url("/img/kitchens/pexels-dmitry-zvolskiy-2062426.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  border-radius: 13px;
+  margin-bottom: 30px;
+}
+main .room-container .heading .blurcontainer {
+  margin: auto;
+  padding: 12px;
+  position: relative;
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  background-color: #ffffffb2;
+  -webkit-backdrop-filter: blur(3px);
+          backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  border-radius: 13px;
+}
+main .room-container .heading .blurcontainer span {
+  font-size: 40px;
+  font-weight: bolder;
+  z-index: 200;
+}
+main .room-container .scene-layout {
+  display: flex;
+  flex-wrap: wrap;
+}
+main .room-container .device-layout {
+  display: flex;
+}
+main .room-container .device-layout .pseudo-model {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 20px;
+}
+main .room-container .device-layout .device-container {
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  border-radius: 13px;
+  margin-bottom: 30px;
+}
+main .room-container .device-layout .device-container .device-skeleton {
+  display: flex;
+  flex-direction: row;
+  width: -webkit-max-content;
+  width: -moz-max-content;
+  width: max-content;
+  border-radius: 13px;
+  margin: 15px 15px 0 0;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+main .room-container .device-layout .device-container .device-skeleton .icon {
+  position: relative;
+  z-index: 100;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  user-drag: none;
+}
+main .room-container .device-layout .device-container .device-skeleton .name {
+  font-size: 20px;
+}
+main .room-container .device-layout .device-container .device-skeleton .slider {
+  position: relative;
+  -webkit-appearance: none;
+  width: 200px;
+  height: 40px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  left: -200%;
+  top: 50%;
+  border-radius: 5px;
+  outline: none;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  transform: translateY(-50%) rotateZ(-90deg);
+  overflow: hidden;
+}
+main .room-container .device-layout .device-container .device-skeleton .slider::before {
+  content: "";
+  left: 0;
+  top: 0;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  box-shadow: inset 0px 0px 15px #00000011;
+  border-radius: inherit;
+  z-index: -20;
+}
+main .room-container .device-layout .device-container .device-skeleton .slider::-webkit-slider-thumb {
+  box-shadow: none;
+  border: 0px solid #ffffff;
+  -webkit-transition: color 300ms ease-in-out;
+  transition: color 300ms ease-in-out;
+  box-shadow: -100vw 0 0 100vw;
+  color: yellow;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  height: 0;
+  width: 0;
+  border-radius: 22px;
+  background: white;
+  cursor: pointer;
+  margin-top: -20px;
+}
+main .room-container .device-layout .device-container .device-skeleton .slider::-moz-range-thumb {
+  box-shadow: none;
+  border: 0px solid #ffffff;
+  -moz-transition: color 300ms ease-in-out;
+  transition: color 300ms ease-in-out;
+  box-shadow: -100vw 0 0 100vw;
+  color: yellow;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  height: 0;
+  width: 0;
+  border-radius: 22px;
+  background: white;
+  cursor: pointer;
+  margin-top: -20px;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .icon {
+  height: 30px;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper {
+  height: 200px;
+  margin: 20px;
+  width: 40px;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider {
+  left: -200%;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-0::-webkit-slider-thumb {
+  color: #ffd3ad;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-0::-moz-range-thumb {
+  color: #ffd3ad;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-1::-webkit-slider-thumb {
+  color: #ffbf8a;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-1::-moz-range-thumb {
+  color: #ffbf8a;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-2::-webkit-slider-thumb {
+  color: #ffa55b;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-2::-moz-range-thumb {
+  color: #ffa55b;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-3::-webkit-slider-thumb {
+  color: #fd923b;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-3::-moz-range-thumb {
+  color: #fd923b;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-4::-webkit-slider-thumb {
+  color: #ff8000;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .temperature .temperature-wrapper .slider.temperature-4::-moz-range-thumb {
+  color: #ff8000;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .brightness {
+  display: flex;
+  flex-direction: column;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .brightness .icon {
+  height: 30px;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .brightness .brightness-wrapper {
+  height: 200px;
+  margin: 20px;
+  width: 40px;
+}
+main .room-container .device-layout .device-container .device-skeleton .option-panel .brightness .brightness-wrapper .slider {
+  left: -200%;
+}
+main .room-container .device-layout .device-container .device-skeleton .main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+main .room-container .device-layout .device-container .device-skeleton .main .light-wrapper {
+  position: relative;
+  aspect-ratio: 1/1;
+  height: 200px;
+  margin: 20px;
+}
+main .room-container .device-layout .device-container .device-skeleton .main .light-wrapper .light {
+  position: absolute;
+  border-radius: 10px;
+  left: 50%;
+  top: 50%;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transform: translate(-50%, -50%);
+  height: inherit;
+  aspect-ratio: inherit;
+  background-color: #FFF;
+  position: relative;
+  cursor: pointer;
+  -webkit-animation-name: off;
+          animation-name: off;
+  -webkit-animation-duration: 250ms;
+          animation-duration: 250ms;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+main .room-container .device-layout .device-container .device-skeleton .main .light-wrapper .light.active {
+  background-color: yellow;
+  -webkit-animation-name: on;
+          animation-name: on;
+  -webkit-animation-duration: 250ms;
+          animation-duration: 250ms;
+  -webkit-animation-timing-function: ease-in-out;
+          animation-timing-function: ease-in-out;
+}
+main .room-container .device-layout .device-container .device-skeleton .main .light-wrapper .light .icon {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  aspect-ratio: 1/1;
+  height: 5rem;
+}

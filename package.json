@@ -1,34 +1,37 @@
 {
-  "repository": "#",
-  "license": "UNLICENSED",
-  "scripts": {
-    "build": "webpack --config ./bundler/webpack.prod.js",
-    "dev": "webpack serve --config ./bundler/webpack.dev.js"
-  },
-  "dependencies": {
-    "@babel/core": "^7.17.10",
-    "@babel/preset-env": "^7.17.10",
-    "babel-loader": "^8.2.5",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^10.2.4",
-    "css-loader": "^6.7.1",
-    "file-loader": "^6.2.0",
-    "gsap": "^3.10.4",
-    "html-loader": "^3.1.0",
-    "html-webpack-plugin": "^5.5.0",
-    "lil-gui": "^0.16.1",
-    "mini-css-extract-plugin": "^2.6.0",
-    "node-sass": "^7.0.1",
-    "portfinder-sync": "0.0.2",
-    "raw-loader": "^4.0.2",
-    "sass": "^1.52.3",
-    "sass-loader": "^13.0.0",
-    "stats.js": "^0.17.0",
-    "style-loader": "^3.3.1",
-    "three": "^0.140.0",
-    "webpack": "^5.72.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.8.1",
-    "webpack-merge": "^5.8.0"
-  }
+    "private": true,
+    "scripts": {
+        "dev": "npm run development",
+        "development": "mix",
+        "watch": "mix watch",
+        "watch-poll": "mix watch -- --watch-options-poll=1000",
+        "hot": "mix watch --hot",
+        "prod": "npm run production",
+        "production": "mix --production"
+    },
+    "devDependencies": {
+        "axios": "^0.21",
+        "browser-sync": "^2.27.10",
+        "browser-sync-webpack-plugin": "^2.3.0",
+        "laravel-echo": "^1.11.3",
+        "laravel-mix": "^6.0.6",
+        "lodash": "^4.17.19",
+        "postcss": "^8.1.14",
+        "pusher-js": "^7.0.6",
+        "resolve-url-loader": "^5.0.0",
+        "sass": "^1.49.8",
+        "sass-loader": "^12.6.0",
+        "vue-loader": "^17.0.0"
+    },
+    "dependencies": {
+        "@soketi/soketi": "^0.30.2",
+        "gsap": "^3.10.4",
+        "lil-gui": "^0.16.1",
+        "stats.js": "^0.17.0",
+        "three": "^0.134.0",
+        "troisjs": "^0.3.4",
+        "vue": "^3.2.29",
+        "vue-global-events": "^1.2.1",
+        "vue-router": "^4.0.14"
+    }
 }

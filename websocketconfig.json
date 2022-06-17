@@ -1,0 +1,7 @@
+{
+    "appManager.array.apps.0.id": "soketi",
+    "appManager.array.apps.0.key": "fischerboy",
+    "appManager.array.apps.0.secret": "BpJ$Yh$NfJn8",
+    "debug": true,
+    "port": 6001
+}
