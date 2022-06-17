@@ -19,7 +19,15 @@ export default class Room {
         // get device control
         this.deviceUtils = new DeviceUtils()
 
+        // init model
         this.setModel()
+
+        // register websocket event handler
+        this.deviceUtils.laravelEcho.channel("device-channel")
+            .listen("DeviceUpdatedEvent", event => {
+                const light = this.lights.find(light => light.name === event.device.objectName)
+                if (light) this.toggle(light)
+            })
     }
 
     addPointOfInterest(light, device) {
@@ -29,7 +37,6 @@ export default class Room {
                 if (light.intensity > 0) await this.deviceUtils.changeDeviceState(device.id, 0)
                 else await this.deviceUtils.changeDeviceState(device.id, 1)
             } else console.warn(`light ${light.name} is not connected to a SmartHome Device!`)
-            this.toggle(light)
         })
         this.pointsOfInterest.push(newPointOfinterest)
     }
