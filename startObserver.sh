@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # kill all running coap-cient worker
 killall coap-client
 

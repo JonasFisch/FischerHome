@@ -10,27 +10,25 @@ export default class Room {
         this.scene = this.experience.scene
         this.resources = this.experience.resources
         this.debug = this.experience.debug
-
-        this.lights = []
         this.resource = this.resources.items.roomModel
+
+        // storages
+        this.lights = []
         this.pointsOfInterest = []
 
-        // device control
+        // get device control
         this.deviceUtils = new DeviceUtils()
 
         this.setModel()
     }
 
-    addPointOfInterest(light) {
+    addPointOfInterest(light, device) {
         const newPointOfinterest = new PointOfInterest(light.parent.position, light.name, 1500)
         newPointOfinterest.element.addEventListener("click", async () =>  {
-            const deviceID = this.deviceUtils.mapping[light.name]
-            if (deviceID) {
-                if (light.intensity > 0) await this.deviceUtils.changeDeviceState(deviceID, 0)
-                else await this.deviceUtils.changeDeviceState(deviceID, 1)
-            } else {
-                console.warn(`light ${light.name} is not connected to a SmartHome Device!`);
-            }
+            if (device) {
+                if (light.intensity > 0) await this.deviceUtils.changeDeviceState(device.id, 0)
+                else await this.deviceUtils.changeDeviceState(device.id, 1)
+            } else console.warn(`light ${light.name} is not connected to a SmartHome Device!`)
             this.toggle(light)
         })
         this.pointsOfInterest.push(newPointOfinterest)
@@ -46,28 +44,35 @@ export default class Room {
         this.scene.add(this.model)
 
         this.model.traverse(child => {
-            if (child instanceof THREE.Mesh) {
-                child.receiveShadow = true
-                child.castShadow = true
-            }
-            if (child instanceof THREE.PointLight) {
-                child.castShadow = true
-                child.shadow.normalBias = 0.05
-                child.shadow.mapSize.set(1024, 1024)
-                child.shadow.camera.far = 10
-                this.addPointOfInterest(child)
-                // const helper = new THREE.CameraHelper(child.shadow.camera)
-                // this.scene.add(helper)
-                child.intensity = 0
-                this.lights.push(child)
-            }
+            if (child instanceof THREE.Mesh) this.setupMesh(child)
+            if (child instanceof THREE.PointLight) this.setupLight(child)
         })
     }
 
+    setupMesh(mesh) {
+        mesh.receiveShadow = true
+        mesh.castShadow = true
+    }
+
+    setupLight(light) {
+        // shadow settings
+        light.castShadow = true
+        light.shadow.normalBias = 0.05
+        light.shadow.mapSize.set(1024, 1024)
+        light.shadow.camera.far = 10
+
+        // set inital device state
+        const device = this.deviceUtils.mapping[light.name]
+        if (device) light.intensity = device.state * 400
+        else light.intensity = 0
+
+        // add point of interest
+        this.addPointOfInterest(light, device)
+        this.lights.push(light)
+    }
+
     update() {
-        for (const pointOfInterest of this.pointsOfInterest) {
-            pointOfInterest.update()
-        }
+        for (const pointOfInterest of this.pointsOfInterest) pointOfInterest.update()
     }
 }
 

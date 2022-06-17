@@ -11,16 +11,13 @@ export default class DeviceUtils {
         instance = this
 
         this.mapping = {}
-
-        this.getAllDevices()
-
     }
 
-    async getAllDevices() {
+    async init() {
         let response = await axios.get("device")
         if (response.status === 200) {
             for (const device of response.data) {
-                if (device.objectName) this.mapping[device.objectName] = device.id
+                if (device.objectName) this.mapping[device.objectName] = device
             }
         } else {
             console.log("Error: ", res.status);
