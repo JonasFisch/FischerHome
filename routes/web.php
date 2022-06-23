@@ -17,7 +17,7 @@ use Symfony\Component\Process\Process;
 */
 
 Route::get('/', function () {
-    return redirect("/device");
+    return redirect("/experience");
 });
 
 Route::resource("device", DeviceController::class);

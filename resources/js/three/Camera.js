@@ -1,3 +1,4 @@
+import { set } from "immutable";
 import * as THREE from "three"
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import Experience from "./Experience";
@@ -15,7 +16,18 @@ export default class Camera {
         if (this.debug.active) this.debugFolder = this.debug.ui.addFolder("camera")
 
         this.setInstance()
-        this.setOrbitControls()
+        // this.setOrbitControls()
+
+        // set correct position
+        this.instance.position.set(3, 4, -3)
+        this.instance.lookAt(new THREE.Vector3(0, 3, 0))
+
+        // PLAYGROUND
+        const ROTATION_DISTANCE = 1
+
+        this.rotationPoint = this.instance.position.clone()
+        // this.rotationPoint.x += ROTATION_DISTANCE
+        // this.rotationPoint.z -= ROTATION_DISTANCE
     }
 
     setInstance() {
@@ -30,7 +42,7 @@ export default class Camera {
             0.1,
             100
         )
-        this.instance.position.set(-19, 12, 20)
+        // this.instance.position.set(-19, 12, 20)
         if (this.debug.active) {
             this.debugFolder
                 .add(this.instance.position, "x")
@@ -68,7 +80,15 @@ export default class Camera {
     }
 
     update() {
-        this.controls.update()
+        // this.controls.update()
+
+
+        const START_ROTATION = Math.PI * (7/4)
+        // const rotationPoint = new THREE.Vector3(0, 0, 0)
+        this.cameraGroup.position.x = this.rotationPoint.x + Math.cos(START_ROTATION + Math.PI * this.cursor.x * -1) //* (this.time.delta / 100)
+        this.cameraGroup.position.z = this.rotationPoint.z + Math.sin(START_ROTATION + Math.PI * this.cursor.x * -1)//* (this.time.delta / 100)
+        this.instance.lookAt(new THREE.Vector3(0, 1, 0))
+
         // const parallaxX = this.cursor.x * 2
         // const parallaxY = - this.cursor.y * 2
 
