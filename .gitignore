@@ -14,3 +14,4 @@ yarn-error.log
 /.idea
 /.vscode
 3DModeling/jonas_sein_room.fbx
+public/models/Room/jonas_sein_room.gltf

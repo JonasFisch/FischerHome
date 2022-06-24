@@ -19,15 +19,16 @@ export default class Camera {
         // this.setOrbitControls()
 
         // set correct position
-        this.instance.position.set(3, 4, -3)
+        this.instance.position.set(4.5, 4, -4.5)
         this.instance.lookAt(new THREE.Vector3(0, 3, 0))
 
-        // PLAYGROUND
-        const ROTATION_DISTANCE = 1
+        // camera helper
+        // const geometry = new THREE.BoxGeometry( 1, 1, 1 );
+        // const material = new THREE.MeshBasicMaterial( { color: 0xffff00 } );
+        // this.mesh = new THREE.Mesh( geometry, material );
+        // this.mesh.position.set(0, 0, 0)
+        // this.scene.add( this.mesh );
 
-        this.rotationPoint = this.instance.position.clone()
-        // this.rotationPoint.x += ROTATION_DISTANCE
-        // this.rotationPoint.z -= ROTATION_DISTANCE
     }
 
     setInstance() {
@@ -84,10 +85,14 @@ export default class Camera {
 
 
         const START_ROTATION = Math.PI * (7/4)
-        // const rotationPoint = new THREE.Vector3(0, 0, 0)
-        this.cameraGroup.position.x = this.rotationPoint.x + Math.cos(START_ROTATION + Math.PI * this.cursor.x * -1) //* (this.time.delta / 100)
-        this.cameraGroup.position.z = this.rotationPoint.z + Math.sin(START_ROTATION + Math.PI * this.cursor.x * -1)//* (this.time.delta / 100)
+        this.cameraGroup.position.x += (Math.cos(START_ROTATION + Math.PI * this.cursor.x * -1) - this.cameraGroup.position.x) * 0.15 * (this.time.delta / 100)
+        this.cameraGroup.position.z += (Math.sin(START_ROTATION + Math.PI * this.cursor.x * -1) - this.cameraGroup.position.z) * 0.15 * (this.time.delta / 100)
         this.instance.lookAt(new THREE.Vector3(0, 1, 0))
+
+        // camera helper
+        // this.mesh.position.x += (Math.cos(START_ROTATION + Math.PI * this.cursor.x * -1) - this.mesh.position.x) * 0.15 * (this.time.delta / 100)
+        // this.mesh.position.z += (Math.sin(START_ROTATION + Math.PI * this.cursor.x * -1) - this.mesh.position.z) * 0.15 * (this.time.delta / 100)
+
 
         // const parallaxX = this.cursor.x * 2
         // const parallaxY = - this.cursor.y * 2

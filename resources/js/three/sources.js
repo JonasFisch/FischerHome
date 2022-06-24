@@ -19,6 +19,6 @@ export default [
     {
         name: 'roomModel',
         type: 'gltfModel',
-        path: 'models/Room/light_test.gltf'
+        path: 'models/Room/jonas_sein_room.gltf'
     }
 ]

@@ -48,6 +48,8 @@ export default class Room {
 
     setModel() {
         this.model = this.resource.scene
+        const SCALE = 0.009
+        this.model.scale.set(SCALE, SCALE, SCALE)
         this.scene.add(this.model)
 
         this.model.traverse(child => {
