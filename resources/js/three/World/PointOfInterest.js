@@ -10,6 +10,7 @@ export default class PointOfInterest {
 
         // set attributes
         this.position = position
+        console.log(position);
 
         // create html element
         this.element = this.createElement(text, delay)
@@ -21,7 +22,7 @@ export default class PointOfInterest {
      * @returns
      */
     createElement(text, delay) {
-        const app = document.querySelector(".app")
+        const app = document.querySelector(".experience")
         const newPointElement = document.querySelector("#pointTemplate").content.cloneNode(true).firstElementChild
         newPointElement.querySelector(".label").innerHTML = ""
         // newPointElement.querySelector(".text").innerHTML = text

@@ -7,20 +7,26 @@ html,
 body {
   font-family: Helvetica, Arial, sans-serif;
   overflow: hidden;
+  background: black;
 }
 
-.app {
+.webgl {
+  -webkit-clip-path: cirlce(10px 190px 190px 10px);
+          clip-path: cirlce(10px 190px 190px 10px);
+}
+
+.experience {
   position: relative;
   height: 100vh;
   width: 100%;
 }
-.app .webgl {
+.experience .webgl {
   position: absolute;
   top: 0;
   left: 0;
   outline: none;
 }
-.app .loading-wrapper {
+.experience .loading-wrapper {
   position: absolute;
   height: 100%;
   width: 100%;
@@ -32,7 +38,7 @@ body {
   transition: opacity 1.5s;
   pointer-events: none;
 }
-.app .loading-wrapper .loading {
+.experience .loading-wrapper .loading {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -40,17 +46,17 @@ body {
   gap: 8px;
   transform: translateY(-50%);
 }
-.app .loading-wrapper .loading .label, .app .loading-wrapper .loading .error-label {
+.experience .loading-wrapper .loading .label, .experience .loading-wrapper .loading .error-label {
   font-size: 24px;
   font-weight: 400;
   color: white;
 }
-.app .loading-wrapper .loading .error-label {
+.experience .loading-wrapper .loading .error-label {
   font-size: 24px;
   color: red;
   visibility: hidden;
 }
-.app .loading-wrapper .loading .bar {
+.experience .loading-wrapper .loading .bar {
   width: 200px;
   height: 10px;
   border-radius: 8px;
@@ -58,7 +64,7 @@ body {
   position: relative;
   overflow: hidden;
 }
-.app .loading-wrapper .loading .bar .progress {
+.experience .loading-wrapper .loading .bar .progress {
   position: absolute;
   content: "";
   left: -100%;
@@ -71,13 +77,13 @@ body {
   transition: all 0.6s;
   background-color: orange;
 }
-.app .loading-wrapper.error .bar, .app .loading-wrapper.error .label, .app .loading-wrapper.error .progress {
+.experience .loading-wrapper.error .bar, .experience .loading-wrapper.error .label, .experience .loading-wrapper.error .progress {
   opacity: 0;
 }
-.app .loading-wrapper.error .error-label {
+.experience .loading-wrapper.error .error-label {
   visibility: visible !important;
 }
-.app .loading-wrapper.ended {
+.experience .loading-wrapper.ended {
   opacity: 0;
 }
 

@@ -51,8 +51,8 @@ export default class Experience {
     update() {
         this.debug.beforeUpdate()
 
-        this.camera.update()
         this.world.update()
+        this.camera.update()
         this.renderer.update()
 
         this.debug.afterUpdate()

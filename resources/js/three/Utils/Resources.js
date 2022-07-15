@@ -1,11 +1,14 @@
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
+import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
+
+
 import EventEmitter from "./EventEmitter"
 import * as THREE from "three"
 
 export default class Resources extends EventEmitter {
     constructor(sources) {
         super()
-        
+
         // Options
         this.sources = sources
         this.items = {}
@@ -35,7 +38,7 @@ export default class Resources extends EventEmitter {
                 loadingProgressElement.style.transform = `translateX(${progressRatioPercentage}%)`
             },
 
-            // Error 
+            // Error
             () => {
                 this.errorOccured = true
                 loadingWrapperElement.classList.add("error")
@@ -44,17 +47,18 @@ export default class Resources extends EventEmitter {
     }
 
     setLoaders() {
-            
+
 
 
         this.loaders = {}
         this.loaders.gltfLoader = new GLTFLoader(this.loadingManager)
+        this.loaders.fBXLoader = new FBXLoader(this.loadingManager)
         this.loaders.textureLoader = new THREE.TextureLoader(this.loadingManager)
         this.loaders.cubeTextureLoader = new THREE.CubeTextureLoader(this.loadingManager)
     }
 
     /**
-     * Loads all sources 
+     * Loads all sources
      */
     startLoading() {
         for (const source of this.sources) {
@@ -64,15 +68,22 @@ export default class Resources extends EventEmitter {
                         source.path,
                         (file) => this.sourceLoaded(source, file)
                     )
+                    console.log(source)
                     break
-                case "texture": 
+                case "texture":
                     this.loaders.textureLoader.load(
                         source.path,
                         (file) => this.sourceLoaded(source, file)
                     )
                     break
-                case "cubeTexture": 
+                case "cubeTexture":
                     this.loaders.cubeTextureLoader.load(
+                        source.path,
+                        (file) => this.sourceLoaded(source, file)
+                    )
+                    break
+                case "fbxModel":
+                    this.loaders.fBXLoader.load(
                         source.path,
                         (file) => this.sourceLoaded(source, file)
                     )

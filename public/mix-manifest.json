@@ -1,4 +1,6 @@
 {
     "/js/three.js": "/js/three.js",
+    "/js/playground.js": "/js/playground.js",
+    "/css/playground.css": "/css/playground.css",
     "/css/three.css": "/css/three.css"
 }

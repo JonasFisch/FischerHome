@@ -7,14 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{{ $title ?? config('app.name') }}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/three.css">
+    <link rel="stylesheet" href="css/playground.css">
 </head>
 
 <body>
     <div id="app">
         {{ $slot }}
     </div>
-    <script src="/js/app.js"></script>
 </body>
 
 </html>

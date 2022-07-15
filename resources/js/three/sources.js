@@ -12,13 +12,8 @@ export default [
         ]
     },
     {
-        name: 'foxModel',
-        type: 'gltfModel',
-        path: 'models/Fox/glTF/Fox.gltf'
-    },
-    {
         name: 'roomModel',
         type: 'gltfModel',
-        path: 'models/Room/jonas_sein_room.gltf'
+        path: 'models/Room/versuch.glb'
     }
 ]

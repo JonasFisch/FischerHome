@@ -26,14 +26,14 @@ Route::resource("device", DeviceController::class);
 // Route::post("device/{device}/dimm", [DeviceController::class, "dimm"]);
 // Route::post("device/{device}/temperature", [DeviceController::class, "temperature"]);
 
-Route::get("observe", function() {
+Route::get("observe", function () {
     return Device::all()->toJson();
 });
 
-Route::get("playground", function() {
-    return view("playground");
+Route::get("experience", function () {
+    return view("three");
 });
 
-Route::get("experience", function() {
-    return view("three");
+Route::get("playground", function () {
+    return view("playground");
 });

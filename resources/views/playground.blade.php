@@ -1,10 +1,10 @@
 <x-layout>
-    <trois-example>
+    <h1>Test</h1>
+    <div class="circle-wrapper">
+        <div class="circle">
+        </div>
+    </div>
 
-    </trois-example>
-    {{-- <div class="prototype-container">
-        <v-light>
+    <script src="{{ mix('js/playground.js') }}"></script>
 
-        </v-light>
-    </div> --}}
 </x-layout>

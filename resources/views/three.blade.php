@@ -1,23 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ThreeJS Template</title>
-    <link rel="stylesheet" href="css/three.css">
-</head>
-
-<body>
+<x-layout>
     <template id="pointTemplate">
         <div class="point">
             <div class="label"></div>
         </div>
     </template>
-    <div class="app">
+    <h1>
+        FischerHome
+    </h1>
+    <div class="experience">
         <canvas class="webgl">
         </canvas>
         <div class="loading-wrapper">
+
+            <div class="circle">
+            </div>
+
             <div class="loading">
                 <span class="label">
                     Loading ...
@@ -33,6 +30,6 @@
         </div>
     </div>
     <script src="{{ mix('js/three.js') }}"></script>
-</body>
+</x-layout>
 
 </html>

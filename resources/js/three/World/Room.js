@@ -31,6 +31,7 @@ export default class Room {
     }
 
     addPointOfInterest(light, device) {
+        console.log("lightposition: ", light.position);
         const newPointOfinterest = new PointOfInterest(light.parent.position, light.name, 1500)
         newPointOfinterest.element.addEventListener("click", async () =>  {
             if (device) {
@@ -48,8 +49,6 @@ export default class Room {
 
     setModel() {
         this.model = this.resource.scene
-        const SCALE = 0.009
-        this.model.scale.set(SCALE, SCALE, SCALE)
         this.scene.add(this.model)
 
         this.model.traverse(child => {
@@ -61,9 +60,13 @@ export default class Room {
     setupMesh(mesh) {
         mesh.receiveShadow = true
         mesh.castShadow = true
+        if (mesh.name == "mando") {
+            console.log(mesh);
+        }
     }
 
     setupLight(light) {
+
         // shadow settings
         light.castShadow = true
         light.shadow.normalBias = 0.05
@@ -78,6 +81,8 @@ export default class Room {
         // add point of interest
         this.addPointOfInterest(light, device)
         this.lights.push(light)
+
+
     }
 
     update() {

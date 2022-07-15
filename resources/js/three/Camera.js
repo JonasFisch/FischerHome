@@ -16,7 +16,7 @@ export default class Camera {
         if (this.debug.active) this.debugFolder = this.debug.ui.addFolder("camera")
 
         this.setInstance()
-        // this.setOrbitControls()
+        if (this.debug.active) this.setOrbitControls()
 
         // set correct position
         this.instance.position.set(4.5, 4, -4.5)
@@ -66,7 +66,6 @@ export default class Camera {
                 .max(20)
                 .step(0.001)
         }
-        console.log(this.instance);
         this.cameraGroup.add(this.instance)
     }
 
@@ -81,13 +80,15 @@ export default class Camera {
     }
 
     update() {
-        // this.controls.update()
 
+        if (this.debug.active) this.controls.update()
+        else {
+            const START_ROTATION = Math.PI * (7/4)
+            this.cameraGroup.position.x += (Math.cos(START_ROTATION + Math.PI * this.cursor.x * -1) - this.cameraGroup.position.x) * 0.15 * (this.time.delta / 100)
+            this.cameraGroup.position.z += (Math.sin(START_ROTATION + Math.PI * this.cursor.x * -1) - this.cameraGroup.position.z) * 0.15 * (this.time.delta / 100)
+            this.instance.lookAt(new THREE.Vector3(0, 1, 0))
+        }
 
-        const START_ROTATION = Math.PI * (7/4)
-        this.cameraGroup.position.x += (Math.cos(START_ROTATION + Math.PI * this.cursor.x * -1) - this.cameraGroup.position.x) * 0.15 * (this.time.delta / 100)
-        this.cameraGroup.position.z += (Math.sin(START_ROTATION + Math.PI * this.cursor.x * -1) - this.cameraGroup.position.z) * 0.15 * (this.time.delta / 100)
-        this.instance.lookAt(new THREE.Vector3(0, 1, 0))
 
         // camera helper
         // this.mesh.position.x += (Math.cos(START_ROTATION + Math.PI * this.cursor.x * -1) - this.mesh.position.x) * 0.15 * (this.time.delta / 100)
