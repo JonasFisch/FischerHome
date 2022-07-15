@@ -3406,6 +3406,7 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 
 
+var LIGHT_INTENSITY = 5;
 
 var Room = /*#__PURE__*/function () {
   function Room() {
@@ -3431,7 +3432,25 @@ var Room = /*#__PURE__*/function () {
         return light.name === event.device.objectName;
       });
 
-      if (light) _this.toggle(light);
+      console.log(event);
+
+      if (light) {
+        switch (event.device.state) {
+          case 0:
+            _this.lightOff(light);
+
+            break;
+
+          case 1:
+            _this.lightOn(light);
+
+            break;
+
+          default:
+            console.warn("invalid device state! returned by server!");
+            break;
+        }
+      }
     });
   }
 
@@ -3448,12 +3467,12 @@ var Room = /*#__PURE__*/function () {
             switch (_context.prev = _context.next) {
               case 0:
                 if (!device) {
-                  _context.next = 10;
+                  _context.next = 12;
                   break;
                 }
 
                 if (!(light.intensity > 0)) {
-                  _context.next = 6;
+                  _context.next = 7;
                   break;
                 }
 
@@ -3461,21 +3480,26 @@ var Room = /*#__PURE__*/function () {
                 return _this2.deviceUtils.changeDeviceState(device.id, 0);
 
               case 4:
-                _context.next = 8;
+                _this2.lightOff(light);
+
+                _context.next = 10;
                 break;
 
-              case 6:
-                _context.next = 8;
+              case 7:
+                _context.next = 9;
                 return _this2.deviceUtils.changeDeviceState(device.id, 1);
 
-              case 8:
-                _context.next = 11;
-                break;
+              case 9:
+                _this2.lightOn(light);
 
               case 10:
+                _context.next = 13;
+                break;
+
+              case 12:
                 console.warn("light ".concat(light.name, " is not connected to a SmartHome Device!"));
 
-              case 11:
+              case 13:
               case "end":
                 return _context.stop();
             }
@@ -3487,10 +3511,20 @@ var Room = /*#__PURE__*/function () {
   }, {
     key: "toggle",
     value: function toggle(light) {
-      if (light.intensity === 0) gsap__WEBPACK_IMPORTED_MODULE_4__["default"].to(light, {
-        intensity: 400,
+      if (light.intensity === 0) this.lightOn(light);else this.lightOff(light);
+    }
+  }, {
+    key: "lightOn",
+    value: function lightOn(light) {
+      gsap__WEBPACK_IMPORTED_MODULE_4__["default"].to(light, {
+        intensity: LIGHT_INTENSITY,
         duration: 0.8
-      });else gsap__WEBPACK_IMPORTED_MODULE_4__["default"].to(light, {
+      });
+    }
+  }, {
+    key: "lightOff",
+    value: function lightOff(light) {
+      gsap__WEBPACK_IMPORTED_MODULE_4__["default"].to(light, {
         intensity: 0,
         duration: 0.8
       });
@@ -3512,10 +3546,6 @@ var Room = /*#__PURE__*/function () {
     value: function setupMesh(mesh) {
       mesh.receiveShadow = true;
       mesh.castShadow = true;
-
-      if (mesh.name == "mando") {
-        console.log(mesh);
-      }
     }
   }, {
     key: "setupLight",
@@ -3527,10 +3557,15 @@ var Room = /*#__PURE__*/function () {
       light.shadow.camera.far = 10; // set inital device state
 
       var device = this.deviceUtils.mapping[light.name];
-      if (device) light.intensity = device.state * 400;else light.intensity = 0; // add point of interest
 
-      this.addPointOfInterest(light, device);
-      this.lights.push(light);
+      if (device) {
+        light.intensity = device.state * LIGHT_INTENSITY; // add point of interest
+
+        this.addPointOfInterest(light, device);
+        this.lights.push(light);
+      } else {
+        light.intensity = 0;
+      }
     }
   }, {
     key: "update",

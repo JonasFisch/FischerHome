@@ -4,9 +4,6 @@
             <div class="label"></div>
         </div>
     </template>
-    <h1>
-        FischerHome
-    </h1>
     <div class="experience">
         <canvas class="webgl">
         </canvas>
