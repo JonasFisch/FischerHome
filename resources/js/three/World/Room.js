@@ -46,7 +46,6 @@ export default class Room {
     }
 
     addPointOfInterest(light, device) {
-        console.log("lightposition: ", light.position);
         const newPointOfinterest = new PointOfInterest(light.parent.position, light.name, 1500)
         newPointOfinterest.element.addEventListener("click", async () =>  {
             if (device) {

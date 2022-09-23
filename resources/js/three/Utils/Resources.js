@@ -5,6 +5,9 @@ import { FBXLoader } from 'three/examples/jsm/loaders/FBXLoader.js'
 import EventEmitter from "./EventEmitter"
 import * as THREE from "three"
 
+let startTime = null
+let endTime = null
+
 export default class Resources extends EventEmitter {
     constructor(sources) {
         super()
@@ -15,6 +18,8 @@ export default class Resources extends EventEmitter {
         this.toLoad = this.sources.length
         this.loaded = 0
         this.errorOccured = false
+
+        startTime = Date.now()
 
         this.setLoadingManager()
         this.setLoaders()
@@ -68,7 +73,6 @@ export default class Resources extends EventEmitter {
                         source.path,
                         (file) => this.sourceLoaded(source, file)
                     )
-                    console.log(source)
                     break
                 case "texture":
                     this.loaders.textureLoader.load(
@@ -97,6 +101,10 @@ export default class Resources extends EventEmitter {
     sourceLoaded(source, file) {
         this.items[source.name] = file
         this.loaded++
-        if (this.loaded === this.toLoad) this.trigger('ready')
+        if (this.loaded === this.toLoad) {
+            this.trigger('ready')
+            endTime = Date.now()
+            console.log(endTime - startTime);
+        }
     }
 }

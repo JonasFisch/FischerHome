@@ -20,7 +20,7 @@ mix
     .js("resources/js/three.js", "public/js/three.js")
     .sass('resources/sass/three/three.sass', 'css/three.css')
 
-    mix
+mix
     .js("resources/js/playground.js", "public/js/playground.js")
     .sass('resources/sass/playground.sass', 'css/playground.css')
 

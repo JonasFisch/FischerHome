@@ -2293,7 +2293,9 @@ var Experience = /*#__PURE__*/function () {
     this.resources = new _Utils_Resources__WEBPACK_IMPORTED_MODULE_6__["default"](_sources__WEBPACK_IMPORTED_MODULE_3__["default"]);
     this.camera = new _Camera__WEBPACK_IMPORTED_MODULE_1__["default"]();
     this.renderer = new _Renderer__WEBPACK_IMPORTED_MODULE_2__["default"]();
-    this.world = new _World_World__WEBPACK_IMPORTED_MODULE_9__["default"]();
+    this.world = new _World_World__WEBPACK_IMPORTED_MODULE_9__["default"](); // update shadow maps
+
+    this.renderer.instance.shadowMap.needsUpdate = true;
   }
 
   _createClass(Experience, [{
@@ -2401,6 +2403,7 @@ var Renderer = /*#__PURE__*/function () {
       this.instance.toneMappingExposure = 1.75;
       this.instance.shadowMap.enabled = true;
       this.instance.shadowMap.type = three__WEBPACK_IMPORTED_MODULE_6__.PCFShadowMap;
+      this.instance.shadowMap.autoUpdate = false;
       this.instance.setClearColor('#211d20');
       this.instance.setSize(this.sizes.width, this.sizes.height);
       this.instance.setPixelRatio(this.sizes.pixelRatio);
@@ -2793,6 +2796,8 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+var startTime = null;
+var endTime = null;
 
 var Resources = /*#__PURE__*/function (_EventEmitter) {
   _inherits(Resources, _EventEmitter);
@@ -2811,6 +2816,7 @@ var Resources = /*#__PURE__*/function (_EventEmitter) {
     _this.toLoad = _this.sources.length;
     _this.loaded = 0;
     _this.errorOccured = false;
+    startTime = Date.now();
 
     _this.setLoadingManager();
 
@@ -2874,7 +2880,6 @@ var Resources = /*#__PURE__*/function (_EventEmitter) {
                 return _this3.sourceLoaded(source, file);
               });
 
-              console.log(source);
               break;
 
             case "texture":
@@ -2917,7 +2922,12 @@ var Resources = /*#__PURE__*/function (_EventEmitter) {
     value: function sourceLoaded(source, file) {
       this.items[source.name] = file;
       this.loaded++;
-      if (this.loaded === this.toLoad) this.trigger('ready');
+
+      if (this.loaded === this.toLoad) {
+        this.trigger('ready');
+        endTime = Date.now();
+        console.log(endTime - startTime);
+      }
     }
   }]);
 
@@ -3321,8 +3331,7 @@ var PointOfInterest = /*#__PURE__*/function () {
     this.camera = this.experience.camera.instance;
     this.sizes = this.experience.sizes; // set attributes
 
-    this.position = position;
-    console.log(position); // create html element
+    this.position = position; // create html element
 
     this.element = this.createElement(text, delay);
   }
@@ -3459,7 +3468,6 @@ var Room = /*#__PURE__*/function () {
     value: function addPointOfInterest(light, device) {
       var _this2 = this;
 
-      console.log("lightposition: ", light.position);
       var newPointOfinterest = new _PointOfInterest__WEBPACK_IMPORTED_MODULE_2__["default"](light.parent.position, light.name, 1500);
       newPointOfinterest.element.addEventListener("click", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {

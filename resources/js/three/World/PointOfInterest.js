@@ -10,7 +10,6 @@ export default class PointOfInterest {
 
         // set attributes
         this.position = position
-        console.log(position);
 
         // create html element
         this.element = this.createElement(text, delay)
